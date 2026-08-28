@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: storage-helper
+  namespace: ml-training
+spec:
+  containers:
+  - name: helper
+    image: ubuntu
+    command: ["sleep", "3600"]
+    volumeMounts:
+    - name: storage-volume
+      mountPath: /app/checkpoints
+  volumes:
+  - name: storage-volume
+    persistentVolumeClaim:
+      claimName: ml-storage-pvc
